@@ -9,20 +9,20 @@ class Grid:
         self.grid = [[0 for j in range(self.columns)] for i in range(self.rows)]
 
     def get_cell_color(self):
+        black = (0, 0, 0)
         cyan = (0, 255, 255)
         yellow = (255, 255, 0)	
         purple = (128, 0, 128)	
         green = (0, 255, 0)	
-        red = (255, 0, 0)
-        blue = (0, 0, 255)
-        orange = (255, 127, 0)
-        grey = (127, 127, 127)	
+        red = (255, 0, 0)	
+        blue = (0, 0, 255)	
+        orange = (255, 127, 0)	
 
-        return [cyan, yellow, purple, green, red, blue, orange, grey]
+        return [black, cyan, yellow, purple, green, red, blue, orange]
     
     def draw(self, screen):
         for row in range(self.rows):
             for column in range(self.columns):
                 cell = self.grid[row][column]
                 cell_rect = pygame.Rect(column*self.cell_size + 1, row*self.cell_size + 1, self.cell_size - 1, self.cell_size - 1)
-                pygame.draw.rect(screen, self.colors[-1], cell_rect)
+                pygame.draw.rect(screen, self.colors[cell], cell_rect)
