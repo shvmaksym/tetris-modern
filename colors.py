@@ -7,7 +7,10 @@ class Colors:
     red = (255, 0, 0)	
     blue = (0, 0, 255)	
     orange = (255, 127, 0)
+    pink = (182,86,140)
+    violet = (48,10,111)
+
 
     @classmethod
     def get_cell_color(cls):
-        return [cls.black, cls.cyan, cls.yellow, cls.purple, cls.green, cls.red, cls.blue, cls.orange]
+        return [cls.black, cls.cyan, cls.yellow, cls.purple, cls.green, cls.red, cls.blue, cls.orange, cls.pink, cls.violet]

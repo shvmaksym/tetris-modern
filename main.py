@@ -13,6 +13,7 @@ def main():
     clock = pygame.time.Clock()
     
     game_grid = Grid()
+    block = CBlock()
 
     run = True
     while run:
@@ -23,6 +24,7 @@ def main():
 
         screen.fill(violet_screen_color)
         game_grid.draw(screen)
+        block.draw(screen)
         pygame.display.update()
         clock.tick(60)
 
