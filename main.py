@@ -1,6 +1,8 @@
 import pygame
+from grid import Grid
 
 violet_screen_color = (73, 6, 72)
+grey = (127, 127, 127)	
 
 def main():
     pygame.init()
@@ -9,6 +11,8 @@ def main():
     pygame.display.set_caption("Tetris Modern")
 
     clock = pygame.time.Clock()
+    
+    game_grid = Grid()
 
     run = True
     while run:
@@ -18,6 +22,7 @@ def main():
                 run = False
 
         screen.fill(violet_screen_color)
+        game_grid.draw(screen)
         pygame.display.update()
         clock.tick(60)
 
