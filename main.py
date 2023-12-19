@@ -1,8 +1,8 @@
 import pygame
 from grid import Grid
+from blocks import *
 
 violet_screen_color = (73, 6, 72)
-grey = (127, 127, 127)	
 
 def main():
     pygame.init()
