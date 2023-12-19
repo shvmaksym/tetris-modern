@@ -1,6 +1,6 @@
 import pygame
 
-grey_screen_color = (73, 6, 72)
+violet_screen_color = (73, 6, 72)
 
 def main():
     pygame.init()
@@ -17,7 +17,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        screen.fill(grey_screen_color)
+        screen.fill(violet_screen_color)
         pygame.display.update()
         clock.tick(60)
 
