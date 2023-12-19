@@ -1,10 +1,12 @@
 import pygame
 
+grey_screen_color = (73, 6, 72)
+
 def main():
     pygame.init()
 
     screen = pygame.display.set_mode((300, 600))
-    pygame.display.set_caption("Tetris modern")
+    pygame.display.set_caption("Tetris Modern")
 
     clock = pygame.time.Clock()
 
@@ -15,6 +17,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+        screen.fill(grey_screen_color)
         pygame.display.update()
         clock.tick(60)
 
