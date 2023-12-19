@@ -7,7 +7,7 @@ grey = (127, 127, 127)
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((300, 600))
+    screen = pygame.display.set_mode((500, 1000))
     pygame.display.set_caption("Tetris Modern")
 
     clock = pygame.time.Clock()
