@@ -1,8 +1,9 @@
 import pygame
-from grid import Grid
-from blocks import *
+from run_game import Run
 
 violet_screen_color = (73, 6, 72)
+
+game_run = Run()
 
 def main():
     pygame.init()
@@ -12,18 +13,14 @@ def main():
 
     clock = pygame.time.Clock()
     
-    game_grid = Grid()
-    block = XBlock()
     run = True
     while run:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
         screen.fill(violet_screen_color)
-        game_grid.draw(screen)
-        block.draw(screen)
+        game_run.draw(screen)
         pygame.display.update()
         clock.tick(60)
 
