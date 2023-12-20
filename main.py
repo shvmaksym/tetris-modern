@@ -13,7 +13,7 @@ def main():
     clock = pygame.time.Clock()
     
     game_grid = Grid()
-    block = SBlock()
+    block = XBlock()
     run = True
     while run:
 
