@@ -16,4 +16,15 @@ class Run:
     def draw(self, screen):
         self.grid.draw(screen)
         self.current.draw(screen)
-        
+
+    def move_left(self):
+        self.current.move(0, -1)
+    
+    def move_right(self):
+        self.current.move(0, 1)
+
+    def move_down(self):
+        self.current.move(1,0)
+
+    def change_position(self):
+        self.current.rotate()
