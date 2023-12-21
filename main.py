@@ -7,7 +7,7 @@ violet_screen_color = (73, 6, 72)
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((500, 1000))
+    screen = pygame.display.set_mode((500, 800))
     pygame.display.set_caption("Tetris Modern")
 
     clock = pygame.time.Clock()
