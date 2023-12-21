@@ -31,6 +31,7 @@ class Run:
         self.current.move(1, 0)
         if self.game_field() == False:
             self.current.move(-1, 0)
+            self.save_block()
 
     def change_position(self):
         positions = self.current.get_positions()
@@ -41,12 +42,18 @@ class Run:
                 return
         self.current.rotate()
 
-
     def game_field(self):
-        tiles = self.current.get_positions()
-        for tile in tiles:
-            if not self.grid.block_inside(tile.row, tile.column):
+        positions = self.current.get_positions()
+        for position in positions:
+            if self.grid.block_inside(position.row, position.column) == False:
                 return False
         return True
 
+    def save_block(self):
+        positions = self.current.get_positions()
+        for position in positions:
+            self.grid.grid[position.row][position.column] = self.current.id
+        self.current = self.next
+        self.next = self.get_random_block()
+            
     
