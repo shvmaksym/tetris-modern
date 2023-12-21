@@ -69,16 +69,16 @@ class XBlock (Block):
         super().__init__(id = 8)
         self.cells = {
             0: [Position(0, 1), Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1)],
-            1: [Position(0, 1), Position(1, 1), Position(1, 2), Position(2, 1), Position(1, 0)],
-            2: [Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1), Position(0, 1)],
-            3: [Position(0, 1), Position(1, 0), Position(1, 1), Position(2, 1), Position(1, 2)],
+            1: [Position(0, 1), Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1)],
+            2: [Position(0, 1), Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1)],
+            3: [Position(0, 1), Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1)],
         }
 class CBlock (Block):
     def __init__(self):
         super().__init__(id = 9)
         self.cells = {
             0: [Position(0, 0), Position(0, 2), Position(1, 0), Position(1, 1), Position(1, 2)],
-            1: [Position(0, 1), Position(0, 2), Position(1, 1), Position(2, 1), Position(1, 0)],
-            2: [Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1), Position(0, 1)],
+            1: [Position(0, 1), Position(0, 2), Position(1, 1), Position(2, 1), Position(2, 2)],
+            2: [Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 0), Position(2, 2)],
             3: [Position(0, 0), Position(0, 1), Position(1, 1), Position(2, 0), Position(2, 1)],
         }
