@@ -34,3 +34,8 @@ class Block:
         for tile in tiles:
             tile_rect = pygame.Rect(tile.column * self.cell_size + 1, tile.row * self.cell_size + 1, self.cell_size - 1, self.cell_size - 1)
             pygame.draw.rect(screen, self.colors[self.id], tile_rect)
+
+    def cancel_rotation(self):
+        self.rotation -= 1
+        if self.rotation == 0:
+            self.rotation = len(self.cells)

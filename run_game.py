@@ -32,9 +32,15 @@ class Run:
         if self.game_field() == False:
             self.current.move(-1, 0)
 
-
     def change_position(self):
+        positions = self.current.get_positions()
+        for tile in positions:
+            if tile.column < 0 or tile.column >= self.grid.columns:
+                return
+            if tile.row < 0 or tile.row >= self.grid.rows:
+                return
         self.current.rotate()
+
 
     def game_field(self):
         tiles = self.current.get_positions()

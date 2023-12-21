@@ -5,6 +5,8 @@ violet_screen_color = (73, 6, 72)
 
 game_run = Run()
 
+
+
 def main():
     pygame.init()
 
