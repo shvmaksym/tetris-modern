@@ -19,12 +19,28 @@ class Run:
 
     def move_left(self):
         self.current.move(0, -1)
+        if self.game_field() == False:
+            self.current.move(0, 1)
     
     def move_right(self):
         self.current.move(0, 1)
+        if self.game_field() == False:
+            self.current.move(0, -1)
 
     def move_down(self):
-        self.current.move(1,0)
+        self.current.move(1, 0)
+        if self.game_field() == False:
+            self.current.move(-1, 0)
+
 
     def change_position(self):
         self.current.rotate()
+
+    def game_field(self):
+        tiles = self.current.get_positions()
+        for tile in tiles:
+            if not self.grid.block_inside(tile.row, tile.column):
+                return False
+        return True
+
+    
