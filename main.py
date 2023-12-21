@@ -22,8 +22,6 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            if event.type == GAME_UPDATE:
-                game_run.move_down()
 
         keys = pygame.key.get_pressed()
 
@@ -39,7 +37,6 @@ def main():
         if keys[pygame.K_SPACE]:
             pygame.time.delay(50)
             game_run.current.rotate()
-
 
         screen.fill(violet_screen_color)
         game_run.draw(screen)

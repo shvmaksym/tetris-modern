@@ -18,11 +18,8 @@ class Block:
     
     def get_positions(self):
         tiles = self.cells[self.rotation]
-        tiles_move = []
-        for position in tiles:
-            position = Position(position.row + self.offset_row, position.column + self.offset_column)
-            tiles_move.append(position)
-        return tiles_move
+        return map(lambda position: Position(position.row + self.offset_row, position.column + self.offset_column), tiles)
+
     
     def rotate(self):
         self.rotation += 1

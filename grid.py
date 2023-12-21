@@ -8,8 +8,6 @@ class Grid:
         self.cell_size = 50
         self.colors = Colors.get_cell_color()
         self.grid = [[0 for _ in range(self.columns)] for _ in range(self.rows)]
-
-
     
     def draw(self, screen):
         for row in range(self.rows):
@@ -19,6 +17,6 @@ class Grid:
                 pygame.draw.rect(screen, self.colors[cell], cell_rect)
     
     def block_inside(self, row, column):
-        if row >= 0 and row <= self.rows and column >= 0 and column <= self.columns:
+        if 0 <= row < self.rows and 0 <= column < self.columns:
             return True
         return False

@@ -29,9 +29,8 @@ class Run:
 
     def move_down(self):
         self.current.move(1, 0)
-        if self.game_field() == False:
+        if self.game_field == False:
             self.current.move(-1, 0)
-            self.save_block()
 
     def change_position(self):
         positions = self.current.get_positions()
@@ -43,9 +42,10 @@ class Run:
         self.current.rotate()
 
     def game_field(self):
-        positions = self.current.get_positions()
-        for position in positions:
-            if self.grid.block_inside(position.row, position.column) == False:
+        tiles = self.current.get_positions()
+        for tile in tiles:
+            if not self.grid.block_inside(tile.row, tile.column):
+                print(tile.row, tile.column)
                 return False
         return True
 
