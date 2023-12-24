@@ -6,7 +6,7 @@ class Block:
     def __init__(self, id):
         self.id = id
         self.cells = {}
-        self.cell_size = 50
+        self.cell_size = 30
         self.offset_row = 0
         self.offset_column = 0
         self.rotation = 0

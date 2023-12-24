@@ -5,7 +5,7 @@ class Grid:
     def __init__(self):
         self.rows = 20
         self.columns = 10
-        self.cell_size = 50
+        self.cell_size = 30
         self.colors = Colors.get_cell_color()
         self.grid = [[0 for _ in range(self.columns)] for _ in range(self.rows)]
     
@@ -20,3 +20,8 @@ class Grid:
         if 0 <= row < self.rows and 0 <= column < self.columns:
             return True
         return False
+    
+    def block_empty(self, row, column):
+        if self.grid[row][column] == 0:
+            return False
+        return True

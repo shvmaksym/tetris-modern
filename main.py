@@ -10,7 +10,7 @@ def main():
     GAME_UPDATE = pygame.USEREVENT
     pygame.time.set_timer(GAME_UPDATE, 250)
 
-    screen = pygame.display.set_mode((500, 800))
+    screen = pygame.display.set_mode((300, 600))
     pygame.display.set_caption("Tetris Modern")
 
     clock = pygame.time.Clock()
@@ -18,10 +18,11 @@ def main():
     run = True
     while run:
         pygame.time.delay(50)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == GAME_UPDATE:
+                game_run.move_down()
 
         keys = pygame.key.get_pressed()
 

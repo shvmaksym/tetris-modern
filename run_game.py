@@ -19,18 +19,19 @@ class Run:
 
     def move_left(self):
         self.current.move(0, -1)
-        if self.game_field() == False:
+        if not self.game_field():
             self.current.move(0, 1)
     
     def move_right(self):
         self.current.move(0, 1)
-        if self.game_field() == False:
+        if not self.game_field():
             self.current.move(0, -1)
 
     def move_down(self):
         self.current.move(1, 0)
-        if self.game_field == False:
+        if not self.game_field():
             self.current.move(-1, 0)
+            self.save_block()
 
     def change_position(self):
         positions = self.current.get_positions()
@@ -45,9 +46,8 @@ class Run:
         tiles = self.current.get_positions()
         for tile in tiles:
             if not self.grid.block_inside(tile.row, tile.column):
-                print(tile.row, tile.column)
                 return False
-        return True
+        return True 
 
     def save_block(self):
         positions = self.current.get_positions()
