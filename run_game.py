@@ -19,17 +19,17 @@ class Run:
 
     def move_left(self):
         self.current.move(0, -1)
-        if not self.game_field():
+        if not self.game_field() or not self.fits_block():
             self.current.move(0, 1)
     
     def move_right(self):
         self.current.move(0, 1)
-        if not self.game_field():
+        if not self.game_field() or not self.fits_block():
             self.current.move(0, -1)
 
     def move_down(self):
         self.current.move(1, 0)
-        if not self.game_field():
+        if not self.game_field() or not self.fits_block():
             self.current.move(-1, 0)
             self.save_block()
 
@@ -55,5 +55,13 @@ class Run:
             self.grid.grid[position.row][position.column] = self.current.id
         self.current = self.next
         self.next = self.get_random_block()
-            
+        
+    def fits_block(self):
+        positions = self.current.get_positions()
+        for position in positions:
+            if not self.grid.block_empty(position.row, position.column):
+                return False
+        return True
+        
+
     

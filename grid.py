@@ -22,6 +22,8 @@ class Grid:
         return False
     
     def block_empty(self, row, column):
-        if self.grid[row][column] == 0:
-            return False
-        return True
+        if self.block_inside(row, column):
+            if self.grid[row][column] == 0:
+                return True
+        return False
+    
