@@ -6,12 +6,18 @@ class Run:
     def __init__(self):
         self.grid = Grid()
         self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
+        random.shuffle(self.blocks)
         self.current = self.get_random_block()
         self.next = self.get_random_block()
-    
+
     def get_random_block(self):
-        block = random.choice(self.blocks)
-        return block
+        if self.blocks:
+            block = self.blocks.pop()
+            return block
+        else:
+            random.shuffle(self.blocks)
+            self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
+            return self.get_random_block()
     
     def draw(self, screen):
         self.grid.draw(screen)
@@ -36,15 +42,15 @@ class Run:
     def change_position(self):
         positions = self.current.get_positions()
         for tile in positions:
-            if tile.column < 0 or tile.column >= self.grid.columns:
+            if 0 < tile.column >= self.grid.columns and 0 < tile.row >= self.grid.rows:
                 return
-            if tile.row < 0 or tile.row >= self.grid.rows:
+            if not self.grid.block_empty(tile.row, tile.column):
                 return
         self.current.rotate()
 
     def game_field(self):
-        tiles = self.current.get_positions()
-        for tile in tiles:
+        positions = self.current.get_positions()
+        for tile in positions:  
             if not self.grid.block_inside(tile.row, tile.column):
                 return False
         return True 
@@ -55,6 +61,7 @@ class Run:
             self.grid.grid[position.row][position.column] = self.current.id
         self.current = self.next
         self.next = self.get_random_block()
+        self.grid.full_row_clear()
         
     def fits_block(self):
         positions = self.current.get_positions()
@@ -62,6 +69,4 @@ class Run:
             if not self.grid.block_empty(position.row, position.column):
                 return False
         return True
-        
-
     

@@ -27,3 +27,28 @@ class Grid:
                 return True
         return False
     
+    def full_row_check(self, row):
+        for column in range(self.columns):
+            if self.grid[row][column] == 0:
+                return False
+        return True
+    
+    def clear_row(self, row):
+        for column in range(self.columns):
+            self.grid[row][column] = 0
+    
+    def shift_row(self, row, rows):
+        for column in range(self.columns):
+            self.grid[row+rows][column] = self.grid[row][column]
+            self.grid[row][column] = 0
+    
+    def full_row_clear(self):
+        completed = 0
+        for row in range(self.rows - 1, 0, -1):
+            if self.full_row_check(row):
+                self.clear_row(row)
+                completed += 1
+            elif completed > 0:
+                self.shift_row(row, completed)
+        return completed
+            
