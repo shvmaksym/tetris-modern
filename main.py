@@ -21,7 +21,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            if event.type == GAME_UPDATE: 
+            if event.type == GAME_UPDATE and game_run.game_over == False: 
                 game_run.move_down()
 
         keys = pygame.key.get_pressed()
