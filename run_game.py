@@ -9,6 +9,7 @@ class Run:
         random.shuffle(self.blocks)
         self.current = self.get_random_block()
         self.next = self.get_random_block()
+        self.game_over = False
 
     def get_random_block(self):
         if self.blocks:
@@ -56,6 +57,8 @@ class Run:
         return True 
 
     def save_block(self):
+        if not self.fits_block():
+            self.game_over = True
         positions = self.current.get_positions()
         for position in positions:
             self.grid.grid[position.row][position.column] = self.current.id
