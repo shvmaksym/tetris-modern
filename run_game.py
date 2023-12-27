@@ -7,6 +7,14 @@ class Run:
         self.grid = Grid()
         self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
         random.shuffle(self.blocks)
+        self.game_over = False
+        self.current = self.get_random_block()
+        self.next = self.get_random_block()
+
+    def reset(self):
+        self.grid.reset()
+        self.game_over = False
+        self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
         self.current = self.get_random_block()
         self.next = self.get_random_block()
         self.game_over = False
@@ -16,8 +24,8 @@ class Run:
             block = self.blocks.pop()
             return block
         else:
-            random.shuffle(self.blocks)
             self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
+            random.shuffle(self.blocks)
             return self.get_random_block()
     
     def draw(self, screen):
@@ -47,6 +55,8 @@ class Run:
                 return
             if not self.grid.block_empty(tile.row, tile.column):
                 return
+            if not self.fits_block():
+                return
         self.current.rotate()
 
     def game_field(self):
@@ -59,6 +69,7 @@ class Run:
     def save_block(self):
         if not self.fits_block():
             self.game_over = True
+            return
         positions = self.current.get_positions()
         for position in positions:
             self.grid.grid[position.row][position.column] = self.current.id
