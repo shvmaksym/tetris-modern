@@ -16,8 +16,8 @@ class Run:
             block = self.blocks.pop()
             return block
         else:
-            random.shuffle(self.blocks)
             self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
+            random.shuffle(self.blocks)
             return self.get_random_block()
     
     def draw(self, screen):
@@ -46,6 +46,8 @@ class Run:
             if 0 < tile.column >= self.grid.columns and 0 < tile.row >= self.grid.rows:
                 return
             if not self.grid.block_empty(tile.row, tile.column):
+                return
+            if not self.fits_block():
                 return
         self.current.rotate()
 
