@@ -7,11 +7,13 @@ class Run:
         self.grid = Grid()
         self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
         random.shuffle(self.blocks)
+        self.game_over = False
         self.current = self.get_random_block()
         self.next = self.get_random_block()
-        self.game_over = False
 
     def get_random_block(self):
+        if self.game_over == True:
+            return
         if self.blocks:
             block = self.blocks.pop()
             return block

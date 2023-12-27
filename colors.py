@@ -9,6 +9,8 @@ class Colors:
     orange = (255, 127, 0)
     pink = (182,86,140)
     violet = (48,10,111)
+    white = (255, 255, 255)
+    screen_color = (73, 6, 72)
 
 
     @classmethod
