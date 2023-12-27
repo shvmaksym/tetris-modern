@@ -6,12 +6,17 @@ from colors import Colors
 
 def game_over():
     screen.fill(Colors.black)
-    
-    game_over_rect = game_over_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 - 50))
-    reset_hint_rect = reset_hint_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 + 50))
+
+    game_over_rect = game_over_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 - 50)
+    )
+    reset_hint_rect = reset_hint_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 + 50)
+    )
 
     screen.blit(game_over_text, game_over_rect.topleft)
     screen.blit(reset_hint_text, reset_hint_rect.topleft)
+
     pygame.display.update()
 
     while True:
@@ -28,8 +33,12 @@ def game_over():
 def start_screen():
     screen.fill(Colors.black)
 
-    title_rect = title_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 - 50))
-    hint_rect = hint_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 + 50))
+    title_rect = title_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 - 50)
+    )
+    hint_rect = hint_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 + 50)
+    )
 
     screen.blit(title_text, title_rect.topleft)
     screen.blit(hint_text, hint_rect.topleft)
@@ -46,6 +55,7 @@ def start_screen():
 
 def paused_screen():
     pause = True
+
     while pause:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -56,7 +66,9 @@ def paused_screen():
                 return
 
         pygame.draw.rect(screen, Colors.black, paused_rect)
+
         screen.blit(paused_text, paused_rect)
+
         pygame.display.update()
 
 
@@ -69,17 +81,23 @@ def handle_events():
             paused_screen()
         if event.type == GAME_UPDATE:
             game_run.move_down()
-    return True 
+
+    return True
 
 
 def handle_keys():
     keys = pygame.key.get_pressed()
+
     if keys[pygame.K_LEFT]:
         game_run.move_left()
+
     if keys[pygame.K_RIGHT]:
         game_run.move_right()
+
     if keys[pygame.K_DOWN]:
         game_run.move_down()
+        game_run.change_score(1, 0)
+
     if keys[pygame.K_SPACE]:
         pygame.time.delay(100)
         game_run.change_position()
@@ -94,18 +112,20 @@ def update_screen():
 
     pygame.draw.rect(screen, Colors.black, score_rect)
     pygame.draw.rect(screen, Colors.black, next_block_rect)
+    screen.blit(score_value_text, score_value_text.get_rect(x = score_rect.centerx, y = score_rect.centery))
+
     pygame.display.update()
 
 
 def __init__():
-    title_font = pygame.font.SysFont('arial', 34, bold=True)
-    hint_font = pygame.font.SysFont('arial', 25)
-    paused_font = pygame.font.SysFont('arial', 50, bold=True)
+    title_font = pygame.font.SysFont("arial", 34, bold=True)
+    hint_font = pygame.font.SysFont("arial", 25)
+    paused_font = pygame.font.SysFont("arial", 50, bold=True)
 
-
-    global score_text, next_block_text, game_over_text, paused_text, title_text, hint_text, reset_hint_text
+    global score_text, next_block_text, game_over_text, paused_text, title_text, hint_text, reset_hint_text, score_value_text
 
     score_text = title_font.render("Score", True, Colors.white)
+    score_value_text = title_font.render(str(game_run.score), True, Colors.white)
     next_block_text = title_font.render("Next", True, Colors.white)
     paused_text = paused_font.render("Paused", True, Colors.white)
     game_over_text = title_font.render("Game Over", True, Colors.white)
@@ -130,9 +150,7 @@ def main():
     global screen
     screen = pygame.display.set_mode((300, 800))
     pygame.display.set_caption("Tetris Modern")
-
-    __init__()
-
+    
     global pause
     pause = False
 
@@ -141,6 +159,7 @@ def main():
     global game_run
     game_run = Run()
 
+    __init__()
     start_screen()
 
     run = True
@@ -148,7 +167,7 @@ def main():
         if game_run.game_over:
             game_over()
         if run:
-            run = handle_events() 
+            run = handle_events()
             handle_keys()
             update_screen()
             clock.tick(30)

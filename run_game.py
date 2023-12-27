@@ -11,6 +11,11 @@ class Run:
         self.game_over = False
         self.current = self.get_random_block()
         self.next = self.get_random_block()
+        self.score = 0
+    
+    def change_score(self, move_points, lines):
+        self.score += move_points
+        self.score += (lines - 1) * 100
 
     def reset(self):
         self.grid.reset()
@@ -19,6 +24,7 @@ class Run:
         self.current = self.get_random_block()
         self.next = self.get_random_block()
         self.game_over = False
+        self.score = 0
 
     def get_random_block(self):
         if self.blocks:
@@ -52,7 +58,6 @@ class Run:
     def change_position(self):
         self.current.rotate()
         if not self.game_field():
-            print(self.game_field())
             self.current.cancel_rotation()
 
     def game_field(self):
@@ -71,7 +76,8 @@ class Run:
             self.grid.grid[position.row][position.column] = self.current.id
         self.current = self.next
         self.next = self.get_random_block()
-        self.grid.full_row_clear()
+        lines = self.grid.full_row_clear()
+        self.change_score(0, lines)
         
     def fits_block(self):
         positions = self.current.get_positions()
