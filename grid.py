@@ -9,6 +9,11 @@ class Grid:
         self.colors = Colors.get_cell_color()
         self.grid = [[0 for _ in range(self.columns)] for _ in range(self.rows)]
     
+    def reset(self):
+        for row in range(self.rows):
+            for column in range(self.columns):
+                self.grid[row][column] = 0
+
     def draw(self, screen):
         for row in range(self.rows):
             for column in range(self.columns):

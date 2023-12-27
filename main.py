@@ -4,6 +4,26 @@ from run_game import Run
 from colors import Colors
 
 
+def game_over():
+    screen.fill(Colors.black)
+    
+    game_over_rect = game_over_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 - 50))
+    reset_hint_rect = reset_hint_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2 + 50))
+
+    screen.blit(game_over_text, game_over_rect.topleft)
+    screen.blit(reset_hint_text, reset_hint_rect.topleft)
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                game_run.game_over = False
+                game_run.reset()
+                return
+
 def start_screen():
     screen.fill(Colors.black)
 
@@ -36,7 +56,6 @@ def paused_screen():
         screen.blit(paused_text, paused_rect)
         pygame.display.update()
 
-
 def handle_events():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -64,8 +83,8 @@ def update_screen():
     screen.fill(Colors.screen_color)
     game_run.draw(screen)
 
-    screen.blit(score_surface, (30, 610, 5, 5))
-    screen.blit(next_block_surface, (185, 610, 5, 5))
+    screen.blit(score_text, (30, 610, 5, 5))
+    screen.blit(next_block_text, (185, 610, 5, 5))
 
     pygame.draw.rect(screen, Colors.black, score_rect)
     pygame.draw.rect(screen, Colors.black, next_block_rect)
@@ -82,26 +101,28 @@ def main():
     screen = pygame.display.set_mode((300, 800))
     pygame.display.set_caption("Tetris Modern")
 
-    global score_surface, next_block_surface, game_over_surface
     title_font = pygame.font.SysFont('arial', 34, bold=True)
-    hint_font = pygame.font.SysFont('arial', 30, bold=True)
-    score_surface = title_font.render("Score", True, Colors.white)
-    next_block_surface = title_font.render("Next", True, Colors.white)
-    game_over_surface = title_font.render("Game Over", True, Colors.white)
-    
-    global score_rect, next_block_rect
-    score_rect = pygame.Rect(20, 650, 110, 70)
-    next_block_rect = pygame.Rect(170, 650, 110, 70)
-
-    global pause, paused_text, paused_rect
-    pause = False
+    hint_font = pygame.font.SysFont('arial', 25)
     paused_font = pygame.font.SysFont('arial', 50, bold=True)
-    paused_text = paused_font.render("Paused", True, Colors.white)
-    paused_rect = pygame.Rect(60, 280, 180, 60)
 
-    global title_text, hint_text
+    global score_text, next_block_text, game_over_text, paused_text, title_text, hint_text, reset_hint_text
+
+    score_text = title_font.render("Score", True, Colors.white)
+    next_block_text = title_font.render("Next", True, Colors.white)
+    paused_text = paused_font.render("Paused", True, Colors.white)
+    game_over_text = title_font.render("Game Over", True, Colors.white)
     title_text = title_font.render("Tetris Modern", True, Colors.pink)
     hint_text = hint_font.render("Press Enter to start", True, Colors.pink)
+    reset_hint_text = hint_font.render("Press Enter to restart", True, Colors.pink)
+    
+    global score_rect, next_block_rect, paused_rect
+
+    score_rect = pygame.Rect(20, 650, 110, 70)
+    next_block_rect = pygame.Rect(170, 650, 110, 70)
+    paused_rect = pygame.Rect(60, 280, 180, 60)
+
+    global pause
+    pause = False
 
     clock = pygame.time.Clock()
 
@@ -109,8 +130,12 @@ def main():
     game_run = Run()
 
     start_screen()
+
     run = True
+    
     while run:
+        if game_run.game_over:
+            game_over()
         if run:
             run = handle_events() 
             handle_keys()

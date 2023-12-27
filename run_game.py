@@ -11,9 +11,14 @@ class Run:
         self.current = self.get_random_block()
         self.next = self.get_random_block()
 
+    def reset(self):
+        self.grid.reset()
+        self.game_over = False
+        self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock(), XBlock(), CBlock()]
+        self.current = self.get_random_block()
+        self.next = self.get_random_block()
+
     def get_random_block(self):
-        if self.game_over == True:
-            return
         if self.blocks:
             block = self.blocks.pop()
             return block
@@ -63,6 +68,7 @@ class Run:
     def save_block(self):
         if not self.fits_block():
             self.game_over = True
+            return
         positions = self.current.get_positions()
         for position in positions:
             self.grid.grid[position.row][position.column] = self.current.id
