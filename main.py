@@ -75,17 +75,14 @@ def handle_events():
 def handle_keys():
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        pygame.time.delay(100)
         game_run.move_left()
     if keys[pygame.K_RIGHT]:
-        pygame.time.delay(100)
         game_run.move_right()
     if keys[pygame.K_DOWN]:
-        pygame.time.delay(100)
         game_run.move_down()
     if keys[pygame.K_SPACE]:
         pygame.time.delay(100)
-        game_run.current.rotate()
+        game_run.change_position()
 
 
 def update_screen():

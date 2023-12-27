@@ -19,7 +19,6 @@ class Block:
     def get_positions(self):
         tiles = self.cells[self.rotation]
         return map(lambda position: Position(position.row + self.offset_row, position.column + self.offset_column), tiles)
-
     
     def rotate(self):
         self.rotation += 1
@@ -35,4 +34,4 @@ class Block:
     def cancel_rotation(self):
         self.rotation -= 1
         if self.rotation == 0:
-            self.rotation = len(self.cells)
+            self.rotation = len(self.cells) - 1

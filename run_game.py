@@ -1,5 +1,6 @@
 from grid import Grid
 from blocks import *
+
 import random
 
 class Run:
@@ -49,15 +50,10 @@ class Run:
             self.save_block()
 
     def change_position(self):
-        positions = self.current.get_positions()
-        for tile in positions:
-            if 0 < tile.column >= self.grid.columns and 0 < tile.row >= self.grid.rows:
-                return
-            if not self.grid.block_empty(tile.row, tile.column):
-                return
-            if not self.fits_block():
-                return
         self.current.rotate()
+        if not self.game_field():
+            print(self.game_field())
+            self.current.cancel_rotation()
 
     def game_field(self):
         positions = self.current.get_positions()
