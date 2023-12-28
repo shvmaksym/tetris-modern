@@ -15,7 +15,13 @@ class Run:
     
     def change_score(self, move_points, lines):
         self.score += move_points
-        self.score += (lines - 1) * 100
+        if lines == 1:
+            self.score += 100
+        elif lines == 2:
+            self.score += 250
+        elif lines == 3:
+            self.score += 500
+
 
     def reset(self):
         self.grid.reset()
@@ -37,7 +43,7 @@ class Run:
     
     def draw(self, screen):
         self.grid.draw(screen)
-        self.current.draw(screen)
+        self.current.draw(screen, 1, 1)
 
     def move_left(self):
         self.current.move(0, -1)
