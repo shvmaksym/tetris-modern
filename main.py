@@ -167,6 +167,9 @@ def __init__():
 def main():
     pygame.init()
 
+    global game_run
+    game_run = Run()
+
     global GAME_UPDATE
     GAME_UPDATE = pygame.USEREVENT
     pygame.time.set_timer(GAME_UPDATE, 500)
@@ -179,9 +182,6 @@ def main():
     pause = False
 
     clock = pygame.time.Clock()
-
-    global game_run
-    game_run = Run()
 
     __init__()
     start_screen()

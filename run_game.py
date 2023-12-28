@@ -12,7 +12,13 @@ class Run:
         self.current = self.get_random_block()
         self.next = self.get_random_block()
         self.score = 0
+        self.speed = 500
     
+    def change_speed(self):
+        if self.score == 100:
+            self.speed -= 40
+
+
     def change_score(self, move_points, lines):
         self.score += move_points
         if lines == 1:
@@ -31,6 +37,7 @@ class Run:
         self.next = self.get_random_block()
         self.game_over = False
         self.score = 0
+        self.speed = 500
 
     def get_random_block(self):
         if self.blocks:
