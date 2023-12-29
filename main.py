@@ -4,6 +4,29 @@ from run_game import Run
 from colors import Colors
 
 
+def start_screen():
+    screen.fill(Colors.black)
+
+    title_rect = title_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 - 50)
+    )
+    hint_rect = hint_text.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 + 50)
+    )
+
+    screen.blit(title_text, title_rect.topleft)
+    screen.blit(hint_text, hint_rect.topleft)
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                return
+
+
 def game_over():
     screen.fill(Colors.black)
 
@@ -25,7 +48,6 @@ def game_over():
     screen.blit(your_score_text, your_score_rect.topleft)
     screen.blit(score_value_text, score_value_rect.topleft)
 
-
     pygame.display.update()
 
     while True:
@@ -34,31 +56,9 @@ def game_over():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                game_run.game_over = False
                 game_run.reset()
-                return
-
-
-def start_screen():
-    screen.fill(Colors.black)
-
-    title_rect = title_text.get_rect(
-        center=(screen.get_width() // 2, screen.get_height() // 2 - 50)
-    )
-    hint_rect = hint_text.get_rect(
-        center=(screen.get_width() // 2, screen.get_height() // 2 + 50)
-    )
-
-    screen.blit(title_text, title_rect.topleft)
-    screen.blit(hint_text, hint_rect.topleft)
-    pygame.display.update()
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                pygame.time.set_timer(GAME_UPDATE, game_run.speed)
+                game_run.game_over = False
                 return
 
 
@@ -112,8 +112,9 @@ def handle_keys():
         game_run.change_position()
 
 
-def update_score_and_next_block():
-    global score_value_text
+def update_score_and_next_block_and_level():
+    global score_value_text, level_value
+    level_value = title_font.render(str(game_run.level), True, Colors.white)
     score_value_text = title_font.render(str(game_run.score), True, Colors.white)
     score_value_rect = score_value_text.get_rect()
 
@@ -121,20 +122,22 @@ def update_score_and_next_block():
     y = score_rect.centery - score_value_rect.height // 2
 
     screen.blit(score_value_text, (x, y))
+    screen.blit(level_value, (100, 740))
     game_run.next.draw(screen, 160, 660)
 
 
-def update_screen():
-    screen.fill(Colors.screen_color)
+def update_screen():  
+    screen.fill(Colors.screen_color) 
     game_run.draw(screen)
     
     screen.blit(score_text, (30, 610, 5, 5))
-    screen.blit(next_block_text, (185, 610, 5, 5))
+    screen.blit(next_block_text, (175, 610, 5, 5))
+    screen.blit(level_text, (30, 740, 5, 5))
 
     pygame.draw.rect(screen, Colors.black, score_rect)
     pygame.draw.rect(screen, Colors.black, next_block_rect)
 
-    update_score_and_next_block()
+    update_score_and_next_block_and_level()
 
     pygame.display.update()
 
@@ -144,7 +147,6 @@ def update_speed():
     if game_run.speed_changed:
         pygame.time.set_timer(GAME_UPDATE, game_run.speed)
         game_run.speed_changed = False
-        return
 
 
 def __init__():
@@ -154,11 +156,11 @@ def __init__():
     hint_font = pygame.font.SysFont("arial", 25)
     paused_font = pygame.font.SysFont("arial", 50, bold=True)
 
-    global score_text, next_block_text, game_over_text, paused_text, title_text, hint_text, reset_hint_text, your_score_text, score_value_text
+    global score_text, next_block_text, game_over_text, paused_text, title_text, hint_text, reset_hint_text, your_score_text, score_value_text, level_text
 
     score_text = title_font.render("Score", True, Colors.white)
-    score_value_text = title_font.render(str(game_run.score), True, Colors.white)
     next_block_text = title_font.render("Next", True, Colors.white)
+    level_text = title_font.render("Lvl. ", True, Colors.white)
     paused_text = paused_font.render("Paused", True, Colors.white)
     game_over_text = title_font.render("Game Over", True, Colors.white)
     your_score_text = title_font.render("Your score :", True, Colors.white)
@@ -204,7 +206,6 @@ def main():
             handle_keys()
             update_screen()
             clock.tick(30)
-
 
 
 if __name__ == "__main__":
