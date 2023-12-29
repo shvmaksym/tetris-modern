@@ -104,7 +104,7 @@ class Run:
 
     def change_position(self):
         self.current.rotate()
-        if not self.game_field():
+        if not self.game_field() or not self.fits_block():
             self.current.cancel_rotation()
 
     def game_field(self):

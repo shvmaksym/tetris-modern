@@ -9,7 +9,7 @@ class Block:
         self.cells = {}
         self.cell_size = 30
         self.offset_row = 0
-        self.offset_column = 0
+        self.offset_column = 3
         self.rotation = 0
         self.colors = Colors.get_cell_color()
 

@@ -123,7 +123,7 @@ def update_score_and_next_block_and_level():
 
     screen.blit(score_value_text, (x, y))
     screen.blit(level_value, (100, 740))
-    game_run.next.draw(screen, 160, 660)
+    game_run.next.draw(screen, 65, 660)
 
 
 def update_screen():  
