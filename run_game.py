@@ -13,10 +13,15 @@ class Run:
         self.next = self.get_random_block()
         self.score = 0
         self.speed = 500
+        self.level = 1
+        self.speed_changed = False
+
     
     def change_speed(self):
-        if self.score == 100:
+        if self.score >= 10 * self.level and self.level != 10:
             self.speed -= 40
+            self.level += 1
+            self.speed_changed = True
 
 
     def change_score(self, move_points, lines):
@@ -39,6 +44,7 @@ class Run:
         self.score = 0
         self.speed = 500
 
+
     def get_random_block(self):
         if self.blocks:
             block = self.blocks.pop()
@@ -48,19 +54,23 @@ class Run:
             random.shuffle(self.blocks)
             return self.get_random_block()
     
+
     def draw(self, screen):
         self.grid.draw(screen)
         self.current.draw(screen, 1, 1)
+
 
     def move_left(self):
         self.current.move(0, -1)
         if not self.game_field() or not self.fits_block():
             self.current.move(0, 1)
     
+
     def move_right(self):
         self.current.move(0, 1)
         if not self.game_field() or not self.fits_block():
             self.current.move(0, -1)
+
 
     def move_down(self):
         self.current.move(1, 0)
@@ -68,10 +78,12 @@ class Run:
             self.current.move(-1, 0)
             self.save_block()
 
+
     def change_position(self):
         self.current.rotate()
         if not self.game_field():
             self.current.cancel_rotation()
+
 
     def game_field(self):
         positions = self.current.get_positions()
@@ -79,6 +91,7 @@ class Run:
             if not self.grid.block_inside(tile.row, tile.column):
                 return False
         return True 
+
 
     def save_block(self):
         if not self.fits_block():
@@ -92,6 +105,7 @@ class Run:
         lines = self.grid.full_row_clear()
         self.change_score(0, lines)
         
+
     def fits_block(self):
         positions = self.current.get_positions()
         for position in positions:

@@ -89,6 +89,7 @@ def handle_events():
             paused_screen()
         if event.type == GAME_UPDATE:
             game_run.move_down()
+            update_speed()
 
     return True
 
@@ -138,6 +139,14 @@ def update_screen():
     pygame.display.update()
 
 
+def update_speed():
+    game_run.change_speed()
+    if game_run.speed_changed:
+        pygame.time.set_timer(GAME_UPDATE, game_run.speed)
+        game_run.speed_changed = False
+        return
+
+
 def __init__():
     global title_font
 
@@ -172,7 +181,7 @@ def main():
 
     global GAME_UPDATE
     GAME_UPDATE = pygame.USEREVENT
-    pygame.time.set_timer(GAME_UPDATE, 500)
+    pygame.time.set_timer(GAME_UPDATE, game_run.speed)
 
     global screen
     screen = pygame.display.set_mode((300, 800))
@@ -188,13 +197,14 @@ def main():
 
     run = True
     while run:
-        if game_run.game_over:
+        if game_run.game_over: 
             game_over()
         if run:
             run = handle_events()
             handle_keys()
             update_screen()
             clock.tick(30)
+
 
 
 if __name__ == "__main__":
